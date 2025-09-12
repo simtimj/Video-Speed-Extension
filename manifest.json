@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Video Overlay Buttons",
+  "version": "1.0",
+  "description": "Overlay buttons on top of videos",
+  "permissions": ["scripting","activeTab"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["overlay.js"],
+      "css": ["overlay.css"]
+    }
+  ]
+}
