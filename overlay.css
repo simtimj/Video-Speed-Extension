@@ -2,17 +2,18 @@
 
 .overlay {
   position: absolute;
-  top: 50%;
+  top: 20%;
   left: 3px;
   display: flex;
   flex-direction: column;
   gap: 3px;
   z-index: 99999;
   pointer-events: auto;
+  margin-top: 5px;
 }
 
 .overlay button {
-  margin-top: 50px;
+  margin-top: 10px;
   padding: 5px;
   font-size: 11px;
   border: none;
