@@ -4,6 +4,9 @@
   "version": "1.0",
   "description": "Overlay buttons on top of videos",
   "permissions": ["scripting","activeTab"],
+  "action": {
+    "default_popup": "overlay.html"
+  },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],

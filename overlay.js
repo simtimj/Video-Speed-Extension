@@ -1,17 +1,26 @@
-let overlay; // keep reference
+let allExtensionDiv;
+let optionDiv;
+let buttonDiv; // keep reference
 
-function addOverlayButtons(video) {
-  if (overlay) return; // don’t duplicate
 
-  // Create overlay container
-  overlay = document.createElement("div");
-  overlay.className = "my-overlay";
+function addbuttonDivButtons(video) {
+  if (buttonDiv) return; // don’t duplicate
+
+  optionDiv = document.createElement("div");
+  optionDiv.className = "optionDiv";
+
+  // Create buttonDiv container
+  buttonDiv = document.createElement("div");
+  buttonDiv.className = "buttonDiv";
 
   // Example buttons
 
   // option button
   const optionsBtn = document.createElement("button");
-  optionsBtn.onclick = () => { alert("Options clicked!") };
+  optionsBtn.innerText = "⚙";
+  optionsBtn.onclick = () => { 
+    alert("Options clicked!") 
+  };
   // optionsBtn.addEventListener("mousedown", () => {
   //   holdTimer = setTimeout(() => {
   //     alert("Button held!");
@@ -21,113 +30,101 @@ function addOverlayButtons(video) {
 
   // skip back buttons
   const smallSkipBackBtn = document.createElement("button");
-  smallSkipBackBtn.innerText = "<5";
-  smallSkipBackBtn.onclick = () => { video.currentTime -= 5; };
+  smallSkipBackBtn.innerText = "-5";
+  smallSkipBackBtn.onclick = (e) => { 
+    video.currentTime -= 5; 
+    e.stopPropagation(); // Prevent triggering parent click events
+  };
+
 
   const bigSkipBackBtn = document.createElement("button");
-  bigSkipBackBtn.innerText = "<30";
-  bigSkipBackBtn.onclick = () => { video.currentTime -= 30; };
+  bigSkipBackBtn.innerText = "-30";
+  bigSkipBackBtn.onclick = (e) => {
+    video.currentTime -= 30;
+    e.stopPropagation(); // Prevent triggering parent click events
+  };
 
   // skip forward buttons
 
   const smallSkipForwardBtn = document.createElement("button");
-  smallSkipForwardBtn.innerText = "5>";
-  smallSkipForwardBtn.onclick = () => { video.currentTime += 5; };
+  smallSkipForwardBtn.innerText = "+5";
+  smallSkipForwardBtn.onclick = (e) => {
+    video.currentTime += 5;
+    e.stopPropagation(); // Prevent triggering parent click events
+  };
 
   const bigSkipForwardBtn = document.createElement("button");
-  bigSkipForwardBtn.innerText = "30>";
-  bigSkipForwardBtn.onclick = () => { video.currentTime += 30; };
+  bigSkipForwardBtn.innerText = "+30";
+  bigSkipForwardBtn.onclick = (e) => {
+    video.currentTime += 30;
+    e.stopPropagation(); // Prevent triggering parent click events
+  };
 
   // speed multiplier buttons
   const smallSpeedMultBtn = document.createElement("button");
   smallSpeedMultBtn.innerText = "x2";
-  smallSpeedMultBtn.onclick = () => { video.playbackRate = 2; };
+  smallSpeedMultBtn.addEventListener("keydown", (e) => {
+    video.playbackRate = 2;
+    e.stopPropagation(); // Prevent triggering parent click events
+  });
+  smallSpeedMultBtn.addEventListener("keyup", (e) => {
+    video.playbackRate = 1;
+    e.stopPropagation(); // Prevent triggering parent click events
+  });
 
   const bigSpeedMultBtn = document.createElement("button");
   bigSpeedMultBtn.innerText = "x3";
-  bigSpeedMultBtn.onclick = () => { video.playbackRate = 3; };
+  bigSpeedMultBtn.addEventListener("keydown", (e) => {
+    video.playbackRate = 3;
+    e.stopPropagation(); // Prevent triggering parent click events
+  });
+  bigSpeedMultBtn.addEventListener("keyup", (e) => {
+    video.playbackRate = 1;
+    e.stopPropagation(); // Prevent triggering parent click events
+  });
 
-  overlay.appendChild(optionsBtn);
 
-  overlay.appendChild(smallSkipBackBtn);
-  overlay.appendChild(  bigSkipBackBtn);
+  // setup inside of divs
+  optionDiv.appendChild(optionsBtn);
 
-  overlay.appendChild(smallSkipForwardBtn);
-  overlay.appendChild(  bigSkipForwardBtn);
+  // buttonDiv.appendChild(optionsBtn);
 
-  overlay.appendChild(smallSpeedMultBtn);
-  overlay.appendChild(  bigSpeedMultBtn);
+  buttonDiv.appendChild(smallSkipBackBtn);
+  buttonDiv.appendChild(  bigSkipBackBtn);
 
-  // Position overlay over video
+  buttonDiv.appendChild(smallSkipForwardBtn);
+  buttonDiv.appendChild(  bigSkipForwardBtn);
+
+  buttonDiv.appendChild(smallSpeedMultBtn);
+  buttonDiv.appendChild(  bigSpeedMultBtn);
+
+  allExtensionDiv = document.createElement("div");
+  allExtensionDiv.className = "allExtensionDiv";
+  allExtensionDiv.appendChild(optionDiv);
+  allExtensionDiv.appendChild(buttonDiv);
+
+  // Position buttonDiv over video
   video.parentElement.style.position = "relative";
-  video.parentElement.appendChild(overlay);
+  // video.parentElement.style.display = "flex"; 
+  // video.parentElement.style.flexDirection = "column"; 
+  video.parentElement.appendChild(allExtensionDiv);
 
   // Start hidden
-  overlay.style.display = "none";
+  allExtensionDiv.style.display = "none";
 }
 
-// Find videos and add overlay
+// Find videos and add buttonDiv
 function init() {
   const video = document.querySelector("video");
-  if (video) addOverlayButtons(video);
+  if (video) addbuttonDivButtons(video);
+  allExtensionDiv.style.display = allExtensionDiv.style.display === "none" ? "flex" : "none";
 }
 
-// Toggle overlay with key press
-document.addEventListener("keydown", (e) => {
-  if (e.key.toLowerCase() === "o" && overlay) {
-    overlay.style.display = overlay.style.display === "none" ? "flex" : "none";
-  }
-});
+// Toggle buttonDiv with key press   //!Save for hide 
+// document.addEventListener("keydown", (e) => {
+//   if (e.key.toLowerCase() === "o" && buttonDiv) {
+//     buttonDiv.style.display = buttonDiv.style.display === "none" ? "flex" : "none";
+//   }
+// });
 
 init();
-
-
-
-
-
-
-
-
-
-
-// // Options 
-
-// document.getElementById("optionsBtn").addEventListener("click", () => {
-//   console.log("Button clicked! 1");
-// });
-
-// // Skips back
-
-// document.getElementById("smallSkipBackBtn").addEventListener("click", () => {
-//   console.log("Button clicked! 2");
-// });
-
-// document.getElementById("bigSkipBackBtn").addEventListener("click", () => {
-//   console.log("Button clicked! 3 ");
-// });
-
-
-// // Skips forward 
-
-// document.getElementById("smallSkipForwardBtn").addEventListener("click", () => {
-//   console.log("Button clicked! 4");
-// });
-
-// document.getElementById("bigSkipForwardBtn").addEventListener("click", () => {
-//   console.log("Button clicked! 5");
-// });
-
-
-//   // Speed multipliers
-
-//   document.getElementById("smallSpeedMultBtn").addEventListener("click", () => {
-//     console.log("Button clicked! 6");
-//   });
-
-//   document.getElementById("bigSpeedMultBtn").addEventListener("click", () => {
-//     console.log("Button clicked! 7");
-//   });
-
-
-
-
