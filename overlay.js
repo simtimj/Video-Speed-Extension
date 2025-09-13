@@ -63,6 +63,9 @@ function addbuttonDivButtons(video) {
   // speed multiplier buttons
   const smallSpeedMultBtn = document.createElement("button");
   smallSpeedMultBtn.innerText = "x2";
+  smallSpeedMultBtn.onclick = (e) => { 
+    e.stopPropagation(); // Prevent triggering parent click events
+  };
   smallSpeedMultBtn.addEventListener("mousedown", (e) => {
     video.playbackRate = 2;
     e.stopPropagation(); // Prevent triggering parent click events
@@ -74,6 +77,9 @@ function addbuttonDivButtons(video) {
 
   const bigSpeedMultBtn = document.createElement("button");
   bigSpeedMultBtn.innerText = "x3";
+  bigSpeedMultBtn.onclick = (e) => {
+    e.stopPropagation(); // Prevent triggering parent click events
+  };
   bigSpeedMultBtn.addEventListener("mousedown", (e) => {
     video.playbackRate = 3;
     e.stopPropagation(); // Prevent triggering parent click events
