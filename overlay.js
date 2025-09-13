@@ -18,8 +18,9 @@ function addbuttonDivButtons(video) {
   // option button
   const optionsBtn = document.createElement("button");
   optionsBtn.innerText = "⚙";
-  optionsBtn.onclick = () => { 
-    alert("Options clicked!") 
+  optionsBtn.onclick = (e) => { 
+    buttonDiv.style.display === "flex" ? (buttonDiv.style.display = "none") : (buttonDiv.style.display = "flex");
+    e.stopPropagation(); // Prevent triggering parent click events
   };
   // optionsBtn.addEventListener("mousedown", () => {
   //   holdTimer = setTimeout(() => {
@@ -126,11 +127,6 @@ function init() {
   allExtensionDiv.style.display = allExtensionDiv.style.display === "none" ? "flex" : "none";
 }
 
-// Toggle buttonDiv with key press   //!Save for hide 
-// document.addEventListener("keydown", (e) => {
-//   if (e.key.toLowerCase() === "o" && buttonDiv) {
-//     buttonDiv.style.display = buttonDiv.style.display === "none" ? "flex" : "none";
-//   }
-// });
+
 
 init();
