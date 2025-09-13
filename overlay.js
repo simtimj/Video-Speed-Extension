@@ -63,22 +63,22 @@ function addbuttonDivButtons(video) {
   // speed multiplier buttons
   const smallSpeedMultBtn = document.createElement("button");
   smallSpeedMultBtn.innerText = "x2";
-  smallSpeedMultBtn.addEventListener("keydown", (e) => {
+  smallSpeedMultBtn.addEventListener("mousedown", (e) => {
     video.playbackRate = 2;
     e.stopPropagation(); // Prevent triggering parent click events
   });
-  smallSpeedMultBtn.addEventListener("keyup", (e) => {
+  smallSpeedMultBtn.addEventListener("mouseup", (e) => {
     video.playbackRate = 1;
     e.stopPropagation(); // Prevent triggering parent click events
   });
 
   const bigSpeedMultBtn = document.createElement("button");
   bigSpeedMultBtn.innerText = "x3";
-  bigSpeedMultBtn.addEventListener("keydown", (e) => {
+  bigSpeedMultBtn.addEventListener("mousedown", (e) => {
     video.playbackRate = 3;
     e.stopPropagation(); // Prevent triggering parent click events
   });
-  bigSpeedMultBtn.addEventListener("keyup", (e) => {
+  bigSpeedMultBtn.addEventListener("mouseup", (e) => {
     video.playbackRate = 1;
     e.stopPropagation(); // Prevent triggering parent click events
   });
