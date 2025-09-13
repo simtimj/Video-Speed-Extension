@@ -1,95 +1,51 @@
 let overlay; // keep reference
 
-
-// collapse 
-function collapseOverlay() {
-  if (overlay) {
-    overlay.style.display = "none";
-  } else {
-    overlay.style.display = "flex";
-  }
-}
-
-// also stop hold prop
-const stopPropagation = (e) => {
-  e.stopPropagation();
-}
-
 function addOverlayButtons(video) {
   if (overlay) return; // don’t duplicate
 
   // Create overlay container
   overlay = document.createElement("div");
-  overlay.className = "overlay";
+  overlay.className = "my-overlay";
 
   // Example buttons
 
   // option button
   const optionsBtn = document.createElement("button");
-  optionsBtn.onclick = (e) => { alert("Options clicked!"); stopPropagation(e); };
-  optionsBtn.innerText = "⚙️";
-  optionsBtn.onclick = (e) => { 
-    collapseOverlay(); 
-    stopPropagation(e); 
-  };
-  
+  optionsBtn.onclick = () => { alert("Options clicked!") };
+  // optionsBtn.addEventListener("mousedown", () => {
+  //   holdTimer = setTimeout(() => {
+  //     alert("Button held!");
+  //   }, 1000); // hold for 1 second
+  // });
 
 
   // skip back buttons
   const smallSkipBackBtn = document.createElement("button");
   smallSkipBackBtn.innerText = "<5";
-  smallSkipBackBtn.onclick = (e) => { 
-    video.currentTime -= 5; 
-    stopPropagation(e); 
-  };
+  smallSkipBackBtn.onclick = () => { video.currentTime -= 5; };
 
   const bigSkipBackBtn = document.createElement("button");
   bigSkipBackBtn.innerText = "<30";
-  bigSkipBackBtn.onclick = (e) => {
-    video.currentTime -= 30; 
-    stopPropagation(e); 
-  };
+  bigSkipBackBtn.onclick = () => { video.currentTime -= 30; };
 
   // skip forward buttons
+
   const smallSkipForwardBtn = document.createElement("button");
   smallSkipForwardBtn.innerText = "5>";
-  smallSkipForwardBtn.onclick = (e) => {
-    video.currentTime += 5; 
-    stopPropagation(e); 
-  };
+  smallSkipForwardBtn.onclick = () => { video.currentTime += 5; };
 
   const bigSkipForwardBtn = document.createElement("button");
   bigSkipForwardBtn.innerText = "30>";
-  bigSkipForwardBtn.onclick = (e) => {
-    video.currentTime += 30; 
-    stopPropagation(e); 
-  };
+  bigSkipForwardBtn.onclick = () => { video.currentTime += 30; };
 
   // speed multiplier buttons
   const smallSpeedMultBtn = document.createElement("button");
   smallSpeedMultBtn.innerText = "x2";
-  smallSpeedMultBtn.addEventListener("mousedown", (e) => {
-    video.playbackRate = 2; 
-    stopPropagation(e); 
-  });
-
-  smallSpeedMultBtn.addEventListener("mouseup", (e) => {
-    video.playbackRate = 1;
-    stopPropagation(e);
-  });
+  smallSpeedMultBtn.onclick = () => { video.playbackRate = 2; };
 
   const bigSpeedMultBtn = document.createElement("button");
   bigSpeedMultBtn.innerText = "x3";
-  bigSpeedMultBtn.addEventListener("mousedown", (e) => {
-    video.playbackRate = 3;
-    stopPropagation(e);
-  });
-
-  bigSpeedMultBtn.addEventListener("mouseup", (e) => {
-    video.playbackRate = 1;
-    stopPropagation(e);
-  });
-
+  bigSpeedMultBtn.onclick = () => { video.playbackRate = 3; };
 
   overlay.appendChild(optionsBtn);
 
@@ -110,39 +66,18 @@ function addOverlayButtons(video) {
   overlay.style.display = "none";
 }
 
-
-
 // Find videos and add overlay
 function init() {
   const video = document.querySelector("video");
-  if (video) {
-    addOverlayButtons(video);
-    overlay.style.display = overlay.style.display === "none" ? "flex" : "none";
-    console.log("Overlay added to video.");``
-  } else {
-    console.log("No video found on this page.");
-  }
+  if (video) addOverlayButtons(video);
 }
 
 // Toggle overlay with key press
-// document.addEventListener("keydown", (e) => {
-//   if (e.key.toLowerCase() === "o" && overlay) {
-//     overlay.style.display = overlay.style.display === "none" ? "flex" : "none";
-//   }
-// });
-
-
-// apply to all buttons e.stopPropagation
-// document.querySelectorAll("button").forEach(btn => {
-//   btn.addEventListener("click", (e) => {
-//     e.stopPropagation();
-//   });
-// });
-
-
-
-
-
+document.addEventListener("keydown", (e) => {
+  if (e.key.toLowerCase() === "o" && overlay) {
+    overlay.style.display = overlay.style.display === "none" ? "flex" : "none";
+  }
+});
 
 init();
 
