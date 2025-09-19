@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Video Playback Controller
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      2
 // @description  Overlay of buttons to skip back and forward through videos, and control playback speed.
 // @author       You
 // @match        *://*/*
@@ -56,7 +56,7 @@
             cursor: pointer !important;
             opacity: 0.2 !important;
         }
-    `)
+    `);
 
 
     let allExtensionDiv;
@@ -90,8 +90,8 @@
     // create divs
     if (allExtensionDiv) return; // don’t duplicate
 
-    allExtensionDiv = document.createElement("div")
-    allExtensionDiv.className = "allExtensionDiv"
+    allExtensionDiv = document.createElement("div");
+    allExtensionDiv.className = "allExtensionDiv";
 
     // allExtensionDiv.style.display = allExtensionDiv.style.display === "none !important;" ? "flex !important;" : "none !important;";
 
@@ -114,7 +114,7 @@
     optionsBtn.innerText = "⚙";
     optionsBtn.onclick = (e) => {
         let isHidden = (buttonDiv.style.display === 'none');
-        buttonDiv.style.setProperty("display", isHidden ? "flex" : "none", "important")
+        buttonDiv.style.setProperty("display", isHidden ? "flex" : "none", "important");
         //buttonDiv.style.display === "flex !important;" ?
         //    (buttonDiv.style.display = "none !important;") :
         //    (buttonDiv.style.display = "flex !important;");
@@ -160,20 +160,20 @@
     };
 
     // speed multiplier buttons
-    const smallSpeedMultBtn = document.createElement("button");
-    smallSpeedMultBtn.innerText = "-2";
-    smallSpeedMultBtn.onclick(e) => {
-        video.playbackRate += 2;
+    const speedDownBtn = document.createElement("button");
+    speedDownBtn.innerText = "-2";
+    speedDownBtn.onclick = (e) => {
+        video.playbackRate -= 2;
         e.stopPropagation(); // Prevent triggering parent click events
         e.preventDefault();
     };
 
-    // console.log(1.3, video)
 
-    const bigSpeedMultBtn = document.createElement("button");
-    bigSpeedMultBtn.innerText = "+2";
-    bigSpeedMultBtn.onclick = (e) => {
-        video.playbackRate -= 2;
+    const speedUpBtn = document.createElement("button");
+    speedUpBtn.innerText = "+2";
+    speedUpBtn.onclick = (e) => {
+        console.log("test")
+        video.playbackRate += 2;
         e.stopPropagation(); // Prevent triggering parent click events
         e.preventDefault();
     };
@@ -186,7 +186,7 @@
             e.stopPropagation(); // Prevent triggering parent click events
             e.preventDefault();
         });
-    })
+    });
 
     // console.log(1.4, video)
 
@@ -194,20 +194,18 @@
     optionDiv.appendChild(optionsBtn);
 
     buttonDiv.appendChild(bigSkipBackBtn);
-    buttonDiv.appendChild(smallSkipBackBtn)
+    buttonDiv.appendChild(smallSkipBackBtn);
 
     buttonDiv.appendChild(smallSkipForwardBtn);
     buttonDiv.appendChild(bigSkipForwardBtn);
 
-    buttonDiv.appendChild(smallSpeedMultBtn);
-    buttonDiv.appendChild(bigSpeedMultBtn);
-
+    buttonDiv.appendChild(speedUpBtn);
+    buttonDiv.appendChild(speedDownBtn);
 
 
     allExtensionDiv.appendChild(optionDiv);
     allExtensionDiv.appendChild(buttonDiv);
 
-    console.log(2, video)
 
     // Position buttonDiv over video
     video.parentElement.style.position = "relative";
