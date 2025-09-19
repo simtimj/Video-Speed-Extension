@@ -1,13 +1,15 @@
 // ==UserScript==
 // @name         Video Playback Controller
 // @namespace    http://tampermonkey.net/
-// @version      2025-09-16
+// @version      1.1
 // @description  Overlay of buttons to skip back and forward through videos, and control playback speed.
 // @author       You
 // @match        *://*/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=google.com
 // @grant        GM_addStyle
 // @run-at       document-idle
+// @downloadURL https://update.greasyfork.org/scripts/549787/Video%20Playback%20Controller.user.js
+// @updateURL https://update.greasyfork.org/scripts/549787/Video%20Playback%20Controller.meta.js
 // ==/UserScript==
 
 (function() {
@@ -20,39 +22,39 @@
             left: 0% !important;
             display: flex !important;
             flex-direction: column !important;
-            gap: 8px !important;
-            z-index: 9999 !important;
+            gap: 3px !important;
+            z-index: 99999 !important;
+            transform: translateZ(0) !important;
+            will-change: transform !important;
+            pointer-events: none;
             width: 35px !important;
         }
-
         .optionDiv {
             top: 10% !important;
             left: 0% !important;
             gap: 8px !important;
             z-index: 9999 !important;
         }
-
         .buttonDiv {
             top: 10% !important;
             left: 0% !important;
             display: flex !important;
             flex-direction: column !important;
-            gap: 8px !important;
+            gap: 3px !important;
             z-index: 99999 !important;
         }
-
-
         .allExtensionDiv button {
             pointer-events: auto !important;
-            padding: 5px !important;
-            width: 27px !important;
+            padding: 4px !important;
+            height: 28px !important;
+            width: 28px !important;
             font-size: 12px !important;
             border: none !important;
             border-radius: 4px !important;
             background: grey !important;
             color: rgb(255, 255, 255) !important;
             cursor: pointer !important;
-            opacity: 0.5 !important;
+            opacity: 0.2 !important;
         }
     `)
 
@@ -209,8 +211,8 @@
     // setup inside of divs
     optionDiv.appendChild(optionsBtn);
 
-    buttonDiv.appendChild(smallSkipBackBtn);
     buttonDiv.appendChild(bigSkipBackBtn);
+    buttonDiv.appendChild(smallSkipBackBtn)
 
     buttonDiv.appendChild(smallSkipForwardBtn);
     buttonDiv.appendChild(bigSkipForwardBtn);
