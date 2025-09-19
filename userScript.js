@@ -161,40 +161,22 @@
 
     // speed multiplier buttons
     const smallSpeedMultBtn = document.createElement("button");
-    smallSpeedMultBtn.innerText = "x2";
-    smallSpeedMultBtn.onclick = (e) => {
+    smallSpeedMultBtn.innerText = "-2";
+    smallSpeedMultBtn.onclick(e) => {
+        video.playbackRate += 2;
         e.stopPropagation(); // Prevent triggering parent click events
         e.preventDefault();
     };
-    smallSpeedMultBtn.addEventListener("mousedown", (e) => {
-        video.playbackRate = 2;
-        e.stopPropagation(); // Prevent triggering parent click events
-        e.preventDefault();
-    });
-    smallSpeedMultBtn.addEventListener("mouseup", (e) => {
-        video.playbackRate = 1;
-        e.stopPropagation(); // Prevent triggering parent click events
-        e.preventDefault();
-    });
 
     // console.log(1.3, video)
 
     const bigSpeedMultBtn = document.createElement("button");
-    bigSpeedMultBtn.innerText = "x3";
+    bigSpeedMultBtn.innerText = "+2";
     bigSpeedMultBtn.onclick = (e) => {
+        video.playbackRate -= 2;
         e.stopPropagation(); // Prevent triggering parent click events
         e.preventDefault();
     };
-    bigSpeedMultBtn.addEventListener("mousedown", (e) => {
-        video.playbackRate = 3;
-        e.stopPropagation(); // Prevent triggering parent click events
-        e.preventDefault();
-    });
-    bigSpeedMultBtn.addEventListener("mouseup", (e) => {
-        video.playbackRate = 1;
-        e.stopPropagation(); // Prevent triggering parent click events
-        e.preventDefault();
-    });
 
     // handle double clicks
     const allDivs = document.querySelectorAll("div");
