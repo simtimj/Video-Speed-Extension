@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         Video Playback Controller
 // @namespace    http://tampermonkey.net/
-// @version      2
+// @version      9/19/25_2
 // @description  Overlay of buttons to skip back and forward through videos, and control playback speed.
 // @author       You
 // @match        *://*/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=google.com
 // @grant        GM_addStyle
-// @run-at       document-idle
+// @run-at       document-end
 // @downloadURL https://update.greasyfork.org/scripts/549787/Video%20Playback%20Controller.user.js
 // @updateURL https://update.greasyfork.org/scripts/549787/Video%20Playback%20Controller.meta.js
 // ==/UserScript==
@@ -23,9 +23,7 @@
             display: flex !important;
             flex-direction: column !important;
             gap: 3px !important;
-            z-index: 99999 !important;
-            transform: translateZ(0) !important;
-            will-change: transform !important;
+            z-index: 999999 !important;
             pointer-events: none;
             width: 35px !important;
         }
@@ -55,6 +53,9 @@
             color: rgb(255, 255, 255) !important;
             cursor: pointer !important;
             opacity: 0.2 !important;
+        }
+        .allExtensionDiv button:focus {
+            background: rgba(51, 103, 214, 0.9);
         }
     `);
 
@@ -93,7 +94,7 @@
     allExtensionDiv = document.createElement("div");
     allExtensionDiv.className = "allExtensionDiv";
 
-    // allExtensionDiv.style.display = allExtensionDiv.style.display === "none !important;" ? "flex !important;" : "none !important;";
+    allExtensionDiv.style.display = allExtensionDiv.style.display === "none !important;" ? "flex !important;" : "none !important;";
 
 
 
@@ -139,7 +140,7 @@
         e.preventDefault();
     };
 
-    // console.log(1.2, video)
+    console.log(1.2, video)
 
     // skip forward buttons
 
@@ -151,6 +152,8 @@
         e.preventDefault();
     };
 
+    console.log(1.21, video)
+
     const bigSkipForwardBtn = document.createElement("button");
     bigSkipForwardBtn.innerText = "+30";
     bigSkipForwardBtn.onclick = (e) => {
@@ -159,24 +162,30 @@
         e.preventDefault();
     };
 
+    console.log(1.3, video)
+
     // speed multiplier buttons
     const speedDownBtn = document.createElement("button");
-    speedDownBtn.innerText = "-2";
+    speedDownBtn.innerText = "x1";
     speedDownBtn.onclick = (e) => {
-        video.playbackRate -= 2;
+        video.playbackRate = 1;
         e.stopPropagation(); // Prevent triggering parent click events
         e.preventDefault();
     };
+
+    console.log(1.31, video)
 
 
     const speedUpBtn = document.createElement("button");
     speedUpBtn.innerText = "+2";
     speedUpBtn.onclick = (e) => {
-        console.log("test")
         video.playbackRate += 2;
         e.stopPropagation(); // Prevent triggering parent click events
         e.preventDefault();
     };
+
+    console.log(1.32, video)
+    
 
     // handle double clicks
     const allDivs = document.querySelectorAll("div");
@@ -188,7 +197,7 @@
         });
     });
 
-    // console.log(1.4, video)
+    console.log(1.4, video)
 
     // setup inside of divs
     optionDiv.appendChild(optionsBtn);
@@ -215,5 +224,30 @@
     allExtensionDiv.style.display = "none";
 
 
+
+    console.log("allExtensionsDiv:", allExtensionDiv);
     })();
 })();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
